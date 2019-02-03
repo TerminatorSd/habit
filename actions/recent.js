@@ -45,26 +45,23 @@ module.exports = [
     routerPath: '/api/create/recent',
 
     async handler (ctx, next) {
-      // console.log(req);
+      
+      const thisData = ctx.request.body;
       const result = {
         code: 0,
         msg: 'ok',
         data: 'fine'
       }
-      // const thisData = req.body;
+
       // 获取当前时间
-      // thisData.updated_at = Date.parse(new Date()) / 1000;
-      const insertData = new RecentModel({
-        title: 'haha',
-        img: 'img',
-      });
-      // console.log(thisData);
+      thisData.updated_at = Date.parse(new Date()) / 1000;
+      const insertData = new RecentModel(thisData);
       try {
         insertData.save(function(error, doc) {
           if(error){
             console.log("error :" + error);
           }else{
-            console.log(doc);
+            // console.log(doc);
           }
         });
       } catch(err) {

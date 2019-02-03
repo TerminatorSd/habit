@@ -1,11 +1,13 @@
 
 const db = require('./utils/mongo.js')
+const path = require('path')
 const Koa = require('koa')
 const Router = require('koa-router')
 const glob = require('glob')
 const koaWebpack = require('koa-webpack')
 const koaStatic = require('koa-static')
 const history = require('koa2-history-api-fallback')
+const koaBody = require('koa-body');
 
 const {PORT} = require('./config/server')
 const {getRouterPath, log} = require('./utils/framework')
@@ -28,8 +30,30 @@ async function registerApp () {
     // node 端中间件和路由
     await registerMiddlewares();
     await registerRoutes();
+
+    // 进行requestbody解析，要放在routes 前面
+    app.use(koaBody({
+      multipart:true, // 支持文件上传
+      // encoding:'gzip',
+      // formidable:{
+      //   uploadDir:path.join(__dirname,'public/upload/'), // 设置文件上传目录
+      //   keepExtensions: true,    // 保持文件的后缀
+      //   maxFieldsSize:2 * 1024 * 1024, // 文件上传大小
+      //   onFileBegin:(name,file) => { // 文件上传前的设置
+      //     // console.log(`name: ${name}`);
+      //     // console.log(file);
+      //   },
+      // }
+    }));
+
     app.use(router.routes());
     app.use(router.allowedMethods());
+
+    // 不添加这个可能拿不到json body 数据
+    // 设置图片大小限制
+    
+    // app.use(bodyParse.json({limit: '10mb'}));
+    // app.use(bodyParse.urlencoded({limit: '10mb', extended: true}));
 
     // 前端(vue)路由
     // 所有 navigate 请求重定向到 '/'，因为 webpack-dev-server 只服务这个路由

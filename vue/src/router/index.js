@@ -33,6 +33,9 @@ export default new Router({
     {
       path: '/create/recent',
       name: 'createRecent',
+      meta: {
+        title: "创建Recent"
+      },
       components: {
         default: CreateRecent
       }

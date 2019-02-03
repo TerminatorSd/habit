@@ -9,7 +9,7 @@
 <template>
 	<v-container>
 		<v-btn fab dark fixed 
-			class="bg-color-main-green"
+			class="bg-main"
 			:style="position"
 			ref="add"
 			@touchstart.native="startMove($event)" 
@@ -40,13 +40,16 @@ export default {
   computed: mapState({
     message: state => state.example.message
   }),
-
+	created () {
+		this.getRecentList();
+    this.$store.dispatch('example/initMessage')
+  },
   methods: {
 		...mapActions('example', ['getNewMessage']),
 		getRecentList() {
 			this.axios.get("/api/recent/list")
 				.then(res => {
-					console.log(res);
+					// console.log(res);
 				})
 				.catch(err => {
 
@@ -54,15 +57,6 @@ export default {
 		},
 		showCreateRecent() {
 			this.$router.push({path: "/create/recent"});
-		},
-		addRecent() {
-			this.axios.post("/api/create/recent", {})
-				.then(res => {
-
-				})
-				.catch(err => {
-
-				})
 		},
 		startMove(e) {
 			this.initX = e.touches[0].clientX - this.$refs.add.$el.offsetLeft;
@@ -75,22 +69,10 @@ export default {
 			this.position.top = `${nowY}px`;
 		}
 	},
-
-  created () {
-		this.getRecentList();
-		this.addRecent();
-    this.$store.dispatch('example/initMessage')
-  }
+  
 }
 </script>
 
 <style scoped lang="less">
-h2 {
-  font-weight: normal;
-}
-.wrapper {
-  .author {
-    text-align: center
-  }
-}
+
 </style>
