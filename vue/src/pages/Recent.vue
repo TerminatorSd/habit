@@ -7,7 +7,20 @@
  */
 
 <template>
-	<v-container>
+	<v-container class="bg-grey">
+		<div
+			v-for="(item, key) in recentList" :key="key" 
+			
+			class="pb-3 pt-1">
+			<div class="left-avater">
+				<img :src="item.img" alt="">
+			</div>
+			<div class="right-content">
+				<div class="title">{{ item.title }}</div>
+				<div class="content pt-2">{{ item.content }}</div>
+				<div class="pt-1"><img src="../img/bee.jpg" alt=""></div>
+			</div>
+		</div>
 		<v-btn fab dark fixed 
 			class="bg-main"
 			:style="position"
@@ -27,6 +40,7 @@ export default {
   name: 'Recent',
   data() {
     return {
+			recentList: null,
 			position: {
 				top: "66%",
 				right: "5%"
@@ -49,7 +63,11 @@ export default {
 		getRecentList() {
 			this.axios.get("/api/recent/list")
 				.then(res => {
-					// console.log(res);
+					if(res.data.code === 0) {
+						this.recentList = res.data.data;
+					} else {
+						this.$toast(res.data.msg, "error");
+					}
 				})
 				.catch(err => {
 
@@ -74,5 +92,19 @@ export default {
 </script>
 
 <style scoped lang="less">
-
+	.left-avater {
+		width: 30px;
+		height: 30px;
+		float: left;
+		border: 1px solid grey;
+	}
+	.right-content {
+		text-align: left;
+		margin-left: 40px;
+		img {
+			max-width: 100%;
+			height: auto;
+			border: 1px solid grey;
+		}
+	}
 </style>

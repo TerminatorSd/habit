@@ -66,7 +66,12 @@ export default {
 
 			this.axios.post("/api/create/recent", postData)
 				.then(res => {
-
+					if(res.data.code === 0) {
+						this.$toast(res.data.msg, "success");
+						this.$router.push({path: "/"});
+					} else {
+						this.$toast(res.data.msg, "error");
+					}
 				})
 				.catch(err => {
 
