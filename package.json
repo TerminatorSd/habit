@@ -32,7 +32,8 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "mongodb": "^2.2.25",
-    "mongoose": "^4.9.3"
+    "mongoose": "^4.9.3",
+    "vue-simple-uploader": "^0.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.5",

@@ -19,34 +19,43 @@
 			/>
 
 			 <v-textarea
-       	outline
+       			outline
 				v-model="content"
-       	label="今天好心情"
+       			label="今天好心情"
 				auto-grow
 				required
-       	value=""
-        ></v-textarea>
+       			value=""
+        	></v-textarea>
 
-				 <v-layout
-					justify-space-between>
-					<v-flex xs12>
-						<v-btn
-							dark
-							color="blue"
-							class="submit-btn mx-0"
-							@click="addRecent"
-						>
-							确认创建
-						</v-btn>
-					</v-flex>
-				</v-layout>
+			<uploader @finishUpload="finishUpload"></uploader>
+
+			<v-layout
+			justify-space-between>
+				<v-flex xs12>
+					<v-btn
+						dark
+						color="blue"
+						class="submit-btn mx-0"
+						@click="addRecent"
+					>
+						确认创建
+					</v-btn>
+				</v-flex>
+			</v-layout>
 		</v-form>
 	</v-container>
 </template>
 
 <script>
+import FileUploader from './FileUploader';
+import Uploader from '../common/Uploader';
+
 export default {
 	name: '',
+	components: {
+		FileUploader,
+		Uploader
+	},
 	data () {
 		return {
 			title: '',
@@ -55,6 +64,7 @@ export default {
 				v => !!v || "请填写标题",
 				v => (v && v.length <= 20) || " 标题必须不超过二十个字"
 			],
+			uploadImg: null,
 		}
 	},
 	methods: {
@@ -62,6 +72,7 @@ export default {
 			let postData = {
 				title: this.title,
 				content: this.content,
+				img: this.uploadImg,
 			}
 
 			this.axios.post("/api/create/recent", postData)
@@ -77,6 +88,9 @@ export default {
 
 				})
 		},
+		finishUpload(data) {
+			this.uploadImg = data.join(',');
+		}
 	}
 }
 </script>
