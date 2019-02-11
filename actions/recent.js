@@ -29,7 +29,7 @@ module.exports = [
         data: 'haha'
       }
       try {
-        result.data = await RecentModel.find();
+        result.data = await RecentModel.find().sort({'updated_at': -1});
       } catch(err) {
         console.log('获取recent list失败');
         result.code = -1;

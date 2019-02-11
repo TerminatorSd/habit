@@ -30,6 +30,7 @@
 			<uploader @finishUpload="finishUpload"></uploader>
 
 			<v-layout
+			class="pt-4"
 			justify-space-between>
 				<v-flex xs12>
 					<v-btn

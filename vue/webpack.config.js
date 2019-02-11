@@ -68,7 +68,7 @@ let webpackConfig = {
             loader: 'url-loader',
             options: {
               limit: 8192, // 小于8k的图片自动转成base64格式
-              outputPath: 'images/' //图片打包后的文件夹
+              outputPath: 'images/', //图片打包后的文件夹
             }
           }
         ]

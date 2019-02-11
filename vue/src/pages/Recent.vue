@@ -13,12 +13,12 @@
 			
 			class="pb-3 pt-1">
 			<div class="left-avater">
-				<img src="" alt="">
+				<img src="../img/bee.jpg" alt="">
 			</div>
 			<div class="right-content">
 				<div class="title">{{ item.title }}</div>
 				<div class="content pt-2">{{ item.content }}</div>
-				<div class="pt-1"><img :src="item.img" alt=""></div>
+				<div class="pt-1"><img :src="'/img/' + item.img" alt=""></div>
 			</div>
 		</div>
 		<v-btn fab dark fixed 
@@ -97,6 +97,9 @@ export default {
 		height: 30px;
 		float: left;
 		border: 1px solid grey;
+		img {
+			max-width: 100%;	
+		}
 	}
 	.right-content {
 		text-align: left;
