@@ -11,6 +11,8 @@ import Recent from '@/pages/Recent.vue'
 import Detail from '@/pages/Detail.vue'
 import BottomNav from '@/components/common/BottomNav'
 import CreateRecent from '@/components/recent/CreateRecent'
+import HabitList from '@/components/habit/HabitList'
+import CreateHabit from '@/components/habit/CreateHabit'
 
 Vue.use(Router)
 
@@ -19,6 +21,10 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/recent'
+    },
+    {
+      path: '/recent',
       name: 'recent',
       components: {
         default: Recent,
@@ -39,6 +45,27 @@ export default new Router({
       components: {
         default: CreateRecent
       }
-    }
+    },
+    {
+      path: '/habit',
+      name: 'habit list',
+      meta: {
+        title: "创建Habit"
+      },
+      components: {
+        default: HabitList,
+        bNav: BottomNav
+      }
+    },
+    {
+      path: '/create/habit',
+      name: 'createHabit',
+      meta: {
+        title: "创建Habit"
+      },
+      components: {
+        default: CreateHabit
+      }
+    },
   ]
 })

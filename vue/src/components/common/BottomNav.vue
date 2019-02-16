@@ -13,7 +13,6 @@
     :active.sync="bottomNav"
     :value="true"
     fixed
-    color="transparent"
   >
     <v-btn
       color="teal"
@@ -27,9 +26,9 @@
     <v-btn
       color="teal"
       flat
-      value="favorites"
+      value="habit"
     >
-      <span>Favorites</span>
+      <span>Habits</span>
       <v-icon>favorite</v-icon>
     </v-btn>
 
@@ -49,6 +48,11 @@
     data () {
       return {
         bottomNav: 'recent'
+      }
+    },
+    watch: {
+      bottomNav(newV, oldV) {
+        this.$router.push({ path: '/' + newV });
       }
     }
   }
